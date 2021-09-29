@@ -61,9 +61,8 @@ namespace UserMaintenance
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var kivalasztott = (User)listBox1.SelectedItem;
-            users.Remove(kivalasztott);
-
+            var torles = (User)listBox1.SelectedItem;
+            users.Remove(torles);
         }
     }
 }
