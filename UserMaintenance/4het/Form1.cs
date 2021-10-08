@@ -98,7 +98,7 @@ namespace _4het
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = ("=ROUND(" + GetCell(counter+2, 7) + "*" + GetCell(counter+2, 8) + ",3)");
+                values[counter, 8] = ("=" + GetCell(counter+2, 7) + "*" + GetCell(counter+2, 8));
                 counter++;
             }
 
@@ -147,6 +147,7 @@ namespace _4het
             //utolsó oszlop
             Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 9), GetCell(lastRowID, 9));
             utolsoSor.Interior.Color = Color.LightGreen;
+            utolsoSor.NumberFormat = "#.00";    
 
             //egesz
             Excel.Range egesz = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, 9));

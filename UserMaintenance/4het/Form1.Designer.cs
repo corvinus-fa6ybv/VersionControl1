@@ -31,21 +31,21 @@ namespace _4het
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.realEstateDataSet = new _4het.RealEstateDataSet();
             this.flatBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.realEstateDataSet = new _4het.RealEstateDataSet();
             this.flatTableAdapter = new _4het.RealEstateDataSetTableAdapters.FlatTableAdapter();
             this.flatSKDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vendorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sideDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.districtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.elevatorDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.elevatorDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberOfRoomsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.floorAreaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.realEstateDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flatBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realEstateDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -68,15 +68,15 @@ namespace _4het
             this.dataGridView1.Size = new System.Drawing.Size(943, 334);
             this.dataGridView1.TabIndex = 0;
             // 
-            // realEstateDataSet
-            // 
-            this.realEstateDataSet.DataSetName = "RealEstateDataSet";
-            this.realEstateDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // flatBindingSource
             // 
             this.flatBindingSource.DataMember = "Flat";
             this.flatBindingSource.DataSource = this.realEstateDataSet;
+            // 
+            // realEstateDataSet
+            // 
+            this.realEstateDataSet.DataSetName = "RealEstateDataSet";
+            this.realEstateDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // flatTableAdapter
             // 
@@ -118,6 +118,8 @@ namespace _4het
             this.elevatorDataGridViewCheckBoxColumn.DataPropertyName = "Elevator";
             this.elevatorDataGridViewCheckBoxColumn.HeaderText = "Elevator";
             this.elevatorDataGridViewCheckBoxColumn.Name = "elevatorDataGridViewCheckBoxColumn";
+            this.elevatorDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.elevatorDataGridViewCheckBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // numberOfRoomsDataGridViewTextBoxColumn
             // 
@@ -147,8 +149,8 @@ namespace _4het
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.realEstateDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.flatBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realEstateDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -164,7 +166,7 @@ namespace _4het
         private System.Windows.Forms.DataGridViewTextBoxColumn vendorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sideDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn districtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn elevatorDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn elevatorDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberOfRoomsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn floorAreaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
