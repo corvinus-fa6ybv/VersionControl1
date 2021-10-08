@@ -17,6 +17,7 @@ namespace _4het
         Excel.Application xlApp;
         Excel.Workbook xlWB;
         Excel.Worksheet xlSheet;
+        string[] headers;
 
         RealEstateEntities context = new RealEstateEntities();
         List<Flat> Flats;
@@ -58,7 +59,7 @@ namespace _4het
 
         private void CreateTable()
         {
-            string[] headers = new string[]
+            headers = new string[]
             {
                 "Kód",
                 "Eladó",
@@ -105,29 +106,7 @@ namespace _4het
             GetCell(2, 1),
             GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
 
-            //fejléc formázás
-            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
-            headerRange.Font.Bold = true;
-            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            headerRange.EntireColumn.AutoFit();
-            headerRange.RowHeight = 40;
-            headerRange.Interior.Color = Color.LightBlue;
-            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
-
-            int lastRowID = xlSheet.UsedRange.Rows.Count;
-            //első oszlop
-            Excel.Range elsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID,1));
-            elsoSor.Font.Bold = true;
-            elsoSor.Interior.Color = Color.Yellow;
-
-            //utolsó oszlop
-            Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 9), GetCell(lastRowID, 9));
-            utolsoSor.Interior.Color = Color.LightGreen;
-
-            //egesz
-            Excel.Range egesz = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID,9));
-            egesz.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+            Formating();
         }
 
         private string GetCell(int x, int y)
@@ -145,6 +124,34 @@ namespace _4het
 
             ExcelCoordinate += x.ToString();
             return ExcelCoordinate;
+        }
+
+        private void Formating()
+        {
+            //fejléc formázás
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            int lastRowID = xlSheet.UsedRange.Rows.Count;
+            //első oszlop
+            Excel.Range elsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID, 1));
+            elsoSor.Font.Bold = true;
+            elsoSor.Interior.Color = Color.LightYellow;
+
+            //utolsó oszlop
+            Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 9), GetCell(lastRowID, 9));
+            utolsoSor.Interior.Color = Color.LightGreen;
+
+            //egesz
+            Excel.Range egesz = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID, 9));
+            egesz.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
