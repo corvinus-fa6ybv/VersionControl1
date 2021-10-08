@@ -8,13 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace _4het
 {
     public partial class Form1 : Form
     {
+        
+
+        RealEstateEntities context = new RealEstateEntities();
+        List<Flat> Flats;
         public Form1()
         {
             InitializeComponent();
+            LoadData();
+           // CreateExcel();
         }
+
+        private void LoadData()
+        {
+            Flats = context.Flats.ToList();
+        }
+
+        
     }
 }
+
