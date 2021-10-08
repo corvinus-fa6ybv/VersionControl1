@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace week04
+namespace _4het
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RealEstateEntities1 : DbContext
+    public partial class RealEstateEntities : DbContext
     {
-        public RealEstateEntities1()
-            : base("name=RealEstateEntities1")
+        public RealEstateEntities()
+            : base("name=RealEstateEntities")
         {
         }
     
