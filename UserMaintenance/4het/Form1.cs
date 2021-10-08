@@ -97,13 +97,33 @@ namespace _4het
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = ("=" + GetCell(counter, 6) + "*" + GetCell(counter, 7));
+                values[counter, 8] = ("=ROUND(" + GetCell(counter, 6) + "*" + GetCell(counter, 7) + ",2)");
                 counter++;
             }
 
             xlSheet.get_Range(
             GetCell(2, 1),
             GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+
+            //excel formázás
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            int lastRowID = xlSheet.UsedRange.Rows.Count;
+            //első oszlop
+            Excel.Range elsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(1, lastRowID));
+            elsoSor.Font.Bold = true;
+            elsoSor.Interior.Color = Color.LightYellow;
+
+            //utolsó oszlop
+            Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(1, lastRowID));
+            utolsoSor.Interior.Color = Color.LightGreen;
 
         }
 
