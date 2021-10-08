@@ -41,7 +41,7 @@ namespace _4het
                 xlSheet = xlWB.ActiveSheet;
                 CreateTable();
 
-                xlApp.Visible = true;
+                xlApp.Visible = true;   
                 xlApp.UserControl = true;
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace _4het
 
             for (int i = 0; i < headers.Length; i++)
             {
-                xlSheet.Cells[1, i + 1] = headers[0];
+                xlSheet.Cells[1, i + 1 ] = headers[i];
             }
 
             object[,] values = new object[Flats.Count, headers.Length];
@@ -97,7 +97,7 @@ namespace _4het
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = ("=ROUND(" + GetCell(counter, 6) + "*" + GetCell(counter, 7) + ",2)");
+                values[counter, 8] = ("=ROUND(" + GetCell(counter+2, 7) + "*" + GetCell(counter+2, 8) + ",3)");
                 counter++;
             }
 
@@ -105,7 +105,7 @@ namespace _4het
             GetCell(2, 1),
             GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
 
-            //excel formázás
+            //fejléc formázás
             Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
             headerRange.Font.Bold = true;
             headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -117,14 +117,17 @@ namespace _4het
 
             int lastRowID = xlSheet.UsedRange.Rows.Count;
             //első oszlop
-            Excel.Range elsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(1, lastRowID));
+            Excel.Range elsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(lastRowID,1));
             elsoSor.Font.Bold = true;
-            elsoSor.Interior.Color = Color.LightYellow;
+            elsoSor.Interior.Color = Color.Yellow;
 
             //utolsó oszlop
-            Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 1), GetCell(1, lastRowID));
+            Excel.Range utolsoSor = xlSheet.get_Range(GetCell(2, 9), GetCell(lastRowID, 9));
             utolsoSor.Interior.Color = Color.LightGreen;
 
+            //egesz
+            Excel.Range egesz = xlSheet.get_Range(GetCell(1, 1), GetCell(lastRowID,9));
+            egesz.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
         }
 
         private string GetCell(int x, int y)
@@ -142,6 +145,13 @@ namespace _4het
 
             ExcelCoordinate += x.ToString();
             return ExcelCoordinate;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'realEstateDataSet.Flat' table. You can move, or remove it, as needed.
+            this.flatTableAdapter.Fill(this.realEstateDataSet.Flat);
+
         }
     }
 }
