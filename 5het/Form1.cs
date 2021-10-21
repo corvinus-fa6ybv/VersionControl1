@@ -14,7 +14,7 @@ namespace _5het
     public partial class Form1 : Form
     {
         PortfolioEntities context = new PortfolioEntities();
-        List<PortfolioItem> Portfolio;
+        List<PortfolioItem> Portfolio = new List<PortfolioItem>();
         List<Tick> Ticks;
         public Form1()
         {
@@ -22,6 +22,32 @@ namespace _5het
             Ticks = context.Ticks.ToList();
             dataGridView1.DataSource = Ticks;
             CreatePortfolio();
+
+
+            //var kiszamítása
+
+            List<decimal> Nyereségek = new List<decimal>();
+            int intervalum = 30;
+            DateTime kezdoDatum = (from x in Ticks
+                                   select x.TradingDay).Min();
+
+            DateTime zaroDatum = new DateTime(2016, 12, 30);
+
+            TimeSpan z = zaroDatum - kezdoDatum;
+
+            for (int i = 0; i < z.Days-intervalum; i++)
+            {
+                decimal ny = GetPortfolioValue(kezdoDatum.AddDays(i + intervalum))
+                               - GetPortfolioValue(kezdoDatum.AddDays(i));
+                Nyereségek.Add(ny);
+                Console.WriteLine(i + "" + ny);
+
+            }
+
+            var nyeresegekRendezve = (from x in Nyereségek
+                                      orderby x
+                                      select x).ToList();
+            MessageBox.Show(nyeresegekRendezve[nyeresegekRendezve.Count() / 5].ToString());
         }
 
         private void CreatePortfolio()
