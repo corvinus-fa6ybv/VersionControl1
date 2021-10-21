@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace _5het
 {
     public partial class Form1 : Form
     {
+        List<decimal> Nyereségek = new List<decimal>();
         PortfolioEntities context = new PortfolioEntities();
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
         List<Tick> Ticks;
@@ -26,7 +28,7 @@ namespace _5het
 
             //var kiszamítása
 
-            List<decimal> Nyereségek = new List<decimal>();
+       
             int intervalum = 30;
             DateTime kezdoDatum = (from x in Ticks
                                    select x.TradingDay).Min();
@@ -82,6 +84,26 @@ namespace _5het
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text files (*.txt)|*.txt|All files(*.*)|*.*";
+            sfd.DefaultExt = "txt";
+            sfd.AddExtension = true;
+            sfd.FileName = "Lista";
+            if (sfd.ShowDialog() == DialogResult.OK) return;
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+                {
+                    sw.WriteLine("Időszak\tNyereség");
+                    for (int i = 0; i < Nyereségek.Count; i++)
+                    {
+                        sw.WriteLine((i + 1).ToString() + "\t" +Nyereségek[i]);
+                    }
+                }
+            }
         }
     }
 }
