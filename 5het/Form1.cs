@@ -93,7 +93,7 @@ namespace _5het
             sfd.DefaultExt = "txt";
             sfd.AddExtension = true;
             sfd.FileName = "Lista";
-            if (sfd.ShowDialog() == DialogResult.OK) return;
+            if (sfd.ShowDialog() == DialogResult.OK)
             {
                 using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
                 {
