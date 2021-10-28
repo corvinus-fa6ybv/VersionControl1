@@ -1,4 +1,5 @@
-﻿using _6het.MnbServiceReference;
+﻿using _6het.Entities;
+using _6het.MnbServiceReference;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,14 @@ namespace _6het
 {
     public partial class Form1 : Form
     {
+        BindingList<RateData> Rates;
         public Form1()
         {
             InitializeComponent();
 
             webszolgaltatasMeghivasa();
+
+            dataGridView1.DataSource = Rates;
         }
 
         private void webszolgaltatasMeghivasa()
