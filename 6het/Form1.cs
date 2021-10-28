@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 
 namespace _6het
@@ -25,8 +26,9 @@ namespace _6het
 
             XML();
 
-            dataGridView1.DataSource = Rates;
+            Diagram();
 
+            dataGridView1.DataSource = Rates;
             
         }
 
@@ -71,6 +73,25 @@ namespace _6het
                     rate.Value = value / unit;
                 }
             }
+        }
+
+        private void Diagram()
+        {
+            chartRatesData.DataSource = Rates;
+
+            var series = chartRatesData.Series[0];
+            series.ChartType = SeriesChartType.Line;
+            series.XValueMember = "Date";
+            series.YValueMembers = "Value";
+            series.BorderWidth = 2;
+
+            var legend = chartRatesData.Legends[0];
+            legend.Enabled = false;
+
+            var chartArea = chartRatesData.ChartAreas[0];
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisY.MajorGrid.Enabled = false;
+            chartArea.AxisY.IsStartedFromZero = false;
         }
     }
 }
