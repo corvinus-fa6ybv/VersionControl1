@@ -8,7 +8,7 @@ namespace _6het.Entities
 {
     class RateData
     {
-        public DateTime Fate { get; set; }
+        public DateTime Date { get; set; }
         public string Currency { get; set; }
         public decimal Value { get; set; }
     }
