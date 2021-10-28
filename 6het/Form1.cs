@@ -16,25 +16,43 @@ namespace _6het
 {
     public partial class Form1 : Form
     {
-        BindingList<RateData> Rates;
-        public string results;
+        BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();
+
         public Form1()
         {
+            
+            InitializeComponent();
+            ComboBoxAdat();
             RefreshData();
+
         }
 
         private void RefreshData()
         {
             Rates.Clear();
-            InitializeComponent();
-
             webszolgaltatasMeghivasa();
-
-            XML();
-
-            Diagram();
-
             dataGridView1.DataSource = Rates;
+            Diagram();
+        }
+
+        private void ComboBoxAdat()
+        {
+            var mnbService = new MNBArfolyamServiceSoapClient();
+            var request = new GetCurrenciesRequestBody();
+            
+            var response = mnbService.GetCurrencies(request);
+            var result = response.GetCurrenciesResult;
+
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+
+            foreach (XmlElement element in xml.DocumentElement.ChildNodes[0])
+            {
+                string newItem = element.InnerText;
+                Currencies.Add(newItem);
+            }
+            comboBox1.DataSource = Currencies;
         }
 
         private void webszolgaltatasMeghivasa()
@@ -45,21 +63,17 @@ namespace _6het
             {
                 currencyNames = comboBox1.SelectedItem.ToString(),
                 startDate = dateTimePicker1.Value.ToString(),
-                endDate = dateTimePicker1.Value.ToString()
+                endDate = dateTimePicker2.Value.ToString()
             };
+
+           
 
             var response = mnbService.GetExchangeRates(request);
 
             var result = response.GetExchangeRatesResult;
 
-            results = result;
-        }
-
-        private void XML()
-        {
             var xml = new XmlDocument();
-            
-            xml.LoadXml(results);
+            xml.LoadXml(result);
 
             foreach (XmlElement element in xml.DocumentElement)
             {
@@ -69,7 +83,9 @@ namespace _6het
                 rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
                 var childElement = (XmlElement)element.ChildNodes[0];
-                rate.Currency = childElement.GetAttribute("currency");
+                if (childElement == null)
+                    continue;
+                rate.Currency = childElement.GetAttribute("curr");
 
                 var unit = decimal.Parse(childElement.GetAttribute("unit"));
                 var value = decimal.Parse(childElement.InnerText);
@@ -78,6 +94,8 @@ namespace _6het
                     rate.Value = value / unit;
                 }
             }
+
+            
         }
 
         private void Diagram()
