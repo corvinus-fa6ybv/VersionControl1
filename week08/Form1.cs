@@ -43,7 +43,7 @@ namespace week08
             var maxPosition = 0;
             foreach (var item in _balls)
             {
-                item.MoveBall();
+                item.MoveToy();
                 if(item.Left > maxPosition)
                 {
                     maxPosition = item.Left;
