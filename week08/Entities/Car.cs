@@ -12,7 +12,7 @@ namespace week08.Entities
     {
         protected override void DrawImage(Graphics g)
         {
-            Image imageFile = Image.FromFile("Images/car.png");
+            Image imageFile = Image.FromFile(@"C:\Users\juhas\Documents\Saját\Egyetem\5. Félév\IRF\VersionControl\week08\Image\car.png");
             g.DrawImage(imageFile, new Rectangle(0,0, Height,Width));
         }
     }
