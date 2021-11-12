@@ -15,10 +15,10 @@ namespace week08
     public partial class Form1 : Form
     {
         private List<Toy> _toys = new List<Toy>();
+        private Toy _nextToy;
 
         private IToyFactory _factory;
 
-        private Toy _nextToy;
 
        public IToyFactory Factory
         {
@@ -81,11 +81,15 @@ namespace week08
 
         private void DisplayNext()
         {
-            if (_nextToy != null) Controls.Remove(_nextToy);
+            if (_nextToy != null)
+            {
+                panel1.Controls.Remove(_nextToy);
+            }
+              
             _nextToy = Factory.CreateNew();
             _nextToy.Top = label1.Top + label1.Height + 20;
             _nextToy.Left = label1.Left;
-            Controls.Add(_nextToy);
+            panel1.Controls.Add(_nextToy);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -98,6 +102,15 @@ namespace week08
                 return;
             }
             button.BackColor = cd.Color;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory()
+            {
+                Ribbon = button5.BackColor,
+                Box = button6.BackColor
+            };
         }
     }
 }
