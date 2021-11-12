@@ -16,9 +16,9 @@ namespace week08
     {
         private List<Toy> _toys = new List<Toy>();
 
-        private BallFactory _factory;
+        private IToyFactory _factory;
 
-        public BallFactory Factory
+       public IToyFactory Factory
         {
             get { return _factory; }
             set { _factory = value; }
